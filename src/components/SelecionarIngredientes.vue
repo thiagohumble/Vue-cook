@@ -7,6 +7,9 @@ export default {
 		return {
 			categorias: obterCategorias()
 		}
+	},
+	async created() {
+		this.categorias = await obterCategorias();
 	}
 }
 </script>
