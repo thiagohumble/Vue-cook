@@ -1,5 +1,6 @@
 <script lang="ts">
 import SelecionarIngredientes from './SelecionarIngredientes.vue'
+
 export default {
 	components: { SelecionarIngredientes },
 	data() {
@@ -30,7 +31,6 @@ export default {
 		</section>
 
 		<SelecionarIngredientes />
-		
 
 	</main>
 </template>
