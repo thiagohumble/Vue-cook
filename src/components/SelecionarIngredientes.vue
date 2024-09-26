@@ -8,6 +8,7 @@
 export default {
 	components: { CardCategoria, BotaoPrincipal },
 	emits: ['adicionarIngrediente', 'removerIngrediente', 'buscarReceitas'],
+	name:'SelecionarIngredientes',
 	data() {
 		return {
 			categorias: [] as ICategoria[]
