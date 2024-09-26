@@ -2,12 +2,27 @@
 import SelecionarIngredientes from './SelecionarIngredientes.vue'
 import Tag from './Tag.vue'
 import SuaLista from './SuaLista.vue'
+import MostrarReceitas from './MostrarReceitas.vue'
+
+type Pagina = 'SelecionarIngredientes' | 'MostrarReceitas'
 
 export default {
-	components: { SelecionarIngredientes, Tag, SuaLista },
+	components: { SelecionarIngredientes, Tag, SuaLista, MostrarReceitas },
+	methods: {
+		adicionarIngrediente(ingrediente: string) {
+			this.ingredientes.push(ingrediente)
+		},
+		removerIngrediente(ingrediente: string) {
+			this.ingredientes = this.ingredientes.filter(iLista => ingrediente !== iLista);
+		},
+		navegar(pagina: Pagina) {
+			this.conteudo = pagina
+		}
+	},
 	data() {
 		return {
-			ingredientes: ['Alho', 'Manteiga', 'Orégano']
+			ingredientes: [] as string[],
+			conteudo: 'SelecionarIngredientes' as Pagina
 		}
 	}
 }
@@ -17,7 +32,14 @@ export default {
 	<main class="conteudo-principal">
 		<SuaLista :ingredientes="ingredientes" />
 
-		<SelecionarIngredientes />
+		<SelecionarIngredientes v-if="conteudo === 'SelecionarIngredientes' "
+			v-on:adicionar-ingrediente="adicionarIngrediente"
+			@remover-ingrediente="removerIngrediente" 
+			@buscar-receitas="navegar('MostrarReceitas')"
+		/> <!-- ingredientes.push($event) agora é método adicionarIngrediente -->
+
+		<MostrarReceitas v-else-if="conteudo === 'MostrarReceitas' "/>
+		
 	</main>
 </template>
 

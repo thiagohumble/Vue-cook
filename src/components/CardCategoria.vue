@@ -3,9 +3,11 @@
 import type { PropType } from 'vue';
 import type ICategoria from '../interfaces/ICategoria';
 import Tag from './Tag.vue';
+import IngredienteSelecionavel from './IngredienteSelecionavel.vue';
 
 	export default {
-		components: { Tag },
+		components: { Tag, IngredienteSelecionavel },
+		emits: ['adicionarIngrediente', 'removerIngrediente'],
 		props: {
 			categoria: { type: Object as PropType<ICategoria> , required: true}
 		}
@@ -19,7 +21,11 @@ import Tag from './Tag.vue';
 			<h2 class="paragrafo-lg categoria__nome">{{categoria.nome}}</h2>
 			<ul class="categoria__ingredientes">
 				<li v-for="ingrediente in categoria.ingredientes" :key="ingrediente">
-					<Tag :texto="ingrediente" />
+					<IngredienteSelecionavel 
+						:ingrediente="ingrediente" 
+						v-on:adicionar-ingrediente="$emit('adicionarIngrediente', $event)" 
+						@remover-ingrediente="$emit('removerIngrediente', $event)"
+					/> <!-- o uso do @ é igual usar v-on: fica sendo um atalho -->
 				</li>
 			</ul>
 		</header>
